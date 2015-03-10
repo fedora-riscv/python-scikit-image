@@ -2,8 +2,8 @@
 %global upname scikit-image
 
 Name: python-scikit-image
-Version: 0.10.1
-Release: 2%{?dist}
+Version: 0.11.0
+Release: 1%{?dist}
 Summary: Image processing in Python
 # The following files are BSD 2 clauses, the rest BSD 3 clauses
 # skimage/graph/_mcp.pyx
@@ -15,8 +15,12 @@ Source0: https://pypi.python.org/packages/source/s/scikit-image/scikit-image-%{v
 BuildRequires: python2-devel python-setuptools numpy Cython
 BuildRequires: scipy python-matplotlib python-nose
 BuildRequires: python-six >= 1.3
+BuildRequires: python-networkx-core
+BuildRequires: python-pillow
 Requires: scipy 
 Requires: python-six >= 1.3
+Requires: python-networkx-core
+Requires: python-pillow
 
 %description
 The scikit-image SciKit (toolkit for SciPy) extends scipy.ndimage to provide a 
@@ -28,8 +32,12 @@ Summary: Image processing in Python
 BuildRequires: python3-devel python3-setuptools python3-numpy python3-Cython
 BuildRequires: python3-scipy python3-matplotlib python3-nose
 BuildRequires: python3-six >= 1.3
+BuildRequires: python3-networkx-core
+BuildRequires: python3-pillow
 Requires: python3-scipy
 Requires: python3-six >= 1.3
+Requires: python3-networkx-core
+Requires: python3-pillow
 
 %description -n python3-%{upname}
 The scikit-image SciKit (toolkit for SciPy) extends scipy.ndimage to provide a 
@@ -54,7 +62,7 @@ for i in $(grep -l -r "/usr/bin/env"); do
 done
 popd
 
-find -name '*.py' | xargs sed -i '1s|^#!python|#!%{__python}|'
+find -name '*.py' | xargs sed -i '1s|^#!python|#!%{__python2}|'
 
 %if 0%{?with_python3}
 rm -rf %{py3dir}
@@ -97,13 +105,15 @@ find %{buildroot} -name "*.so" | xargs chmod 755
 #%endif # with_python3
  
 %files
-%doc CONTRIBUTORS.txt DEPENDS.txt LICENSE.txt RELEASE.txt TASKS.txt
+%doc CONTRIBUTORS.txt DEPENDS.txt RELEASE.txt TASKS.txt
+%license LICENSE.txt
 %{python2_sitearch}/skimage
 %{python2_sitearch}/scikit_image-*.egg-info
 
 %if 0%{?with_python3}
 %files -n python3-%{upname}
-%doc CONTRIBUTORS.txt DEPENDS.txt LICENSE.txt RELEASE.txt TASKS.txt
+%doc CONTRIBUTORS.txt DEPENDS.txt RELEASE.txt TASKS.txt
+%license LICENSE.txt
 %{python3_sitearch}/skimage
 %{python3_sitearch}/scikit_image-*.egg-info
 %endif # with_python3
@@ -112,6 +122,9 @@ find %{buildroot} -name "*.so" | xargs chmod 755
 %{_bindir}/skivi
 
 %changelog
+* Wed Feb 04 2015 Sergio Pascual <sergiopr@fedoraproject.org> - 0.11.0-1
+- New upstream version
+
 * Tue Jul 29 2014 Sergio Pascual <sergiopr@fedoraproject.org> - 0.10.1-2
 - Remove __provides_exclude_from, is not needed in f20+
 
