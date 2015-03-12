@@ -2,7 +2,7 @@
 %global upname scikit-image
 
 Name: python-scikit-image
-Version: 0.11.0
+Version: 0.11.2
 Release: 1%{?dist}
 Summary: Image processing in Python
 # The following files are BSD 2 clauses, the rest BSD 3 clauses
@@ -122,6 +122,9 @@ find %{buildroot} -name "*.so" | xargs chmod 755
 %{_bindir}/skivi
 
 %changelog
+* Thu Mar 12 2015 Sergio Pascual <sergiopr@fedoraproject.org> - 0.11.2-1
+- New upstream version (0.11.2)
+
 * Wed Feb 04 2015 Sergio Pascual <sergiopr@fedoraproject.org> - 0.11.0-1
 - New upstream version
 
