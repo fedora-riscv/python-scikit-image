@@ -2,7 +2,7 @@
 %global upname scikit-image
 
 Name: python-scikit-image
-Version: 0.11.2
+Version: 0.11.3
 Release: 1%{?dist}
 Summary: Image processing in Python
 # The following files are BSD 2 clauses, the rest BSD 3 clauses
@@ -93,16 +93,24 @@ popd
 find %{buildroot} -name "*.so" | xargs chmod 755
 
 # Checks are not working at the moment
-#%check
-#pushd %{buildroot}/%{python2_sitearch}
-#nosetests-%{python2_version} skimage
-#popd
+%check
+# Fake matplotlibrc
+mkdir -p matplotlib
+touch matplotlib/matplotlibrc
+export XDG_CONFIG_HOME=`pwd`
+pushd %{buildroot}/%{python2_sitearch}
+nosetests-%{python2_version} skimage
+popd
 
-#%if 0%{?with_python3}
-#pushd %{buildroot}/%{python3_sitearch}
-#nosetests-%{python3_version} skimage
-#popd
-#%endif # with_python3
+%if 0%{?with_python3}
+# Fake matplotlibrc
+mkdir -p matplotlib
+touch matplotlib/matplotlibrc
+export XDG_CONFIG_HOME=`pwd`
+pushd %{buildroot}/%{python3_sitearch}
+nosetests-%{python3_version} skimage
+popd
+%endif # with_python3
  
 %files
 %doc CONTRIBUTORS.txt DEPENDS.txt RELEASE.txt TASKS.txt
@@ -122,6 +130,9 @@ find %{buildroot} -name "*.so" | xargs chmod 755
 %{_bindir}/skivi
 
 %changelog
+* Thu May 21 2015 Sergio Pascual <sergiopr@fedoraproject.org> - 0.11.3-1
+- New upstream version (0.11.3)
+
 * Thu Mar 12 2015 Sergio Pascual <sergiopr@fedoraproject.org> - 0.11.2-1
 - New upstream version (0.11.2)
 
