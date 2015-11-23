@@ -3,7 +3,7 @@
 
 Name: python-scikit-image
 Version: 0.11.3
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: Image processing in Python
 # The following files are BSD 2 clauses, the rest BSD 3 clauses
 # skimage/graph/_mcp.pyx
@@ -21,6 +21,7 @@ Requires: scipy
 Requires: python-six >= 1.3
 Requires: python-networkx-core
 Requires: python-pillow
+Provides: python2-scikit-image
 
 %description
 The scikit-image SciKit (toolkit for SciPy) extends scipy.ndimage to provide a 
@@ -130,6 +131,9 @@ popd
 %{_bindir}/skivi
 
 %changelog
+* Mon Nov 23 2015 Sergio Pascual <sergiopr@fedoraproject.org> - 0.11.3-5
+- Provides python2-scikit-image
+
 * Tue Nov 10 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.11.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Changes/python3.5
 
