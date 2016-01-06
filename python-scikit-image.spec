@@ -3,7 +3,7 @@
 
 Name: python-scikit-image
 Version: 0.11.3
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: Image processing in Python
 # The following files are BSD 2 clauses, the rest BSD 3 clauses
 # skimage/graph/_mcp.pyx
@@ -11,7 +11,12 @@ Summary: Image processing in Python
 License: BSD
 
 URL: http://scikit-image.org/
-Source0: https://pypi.python.org/packages/source/s/scikit-image/scikit-image-%{version}.tar.gz
+# Upstream contains images of problematic copyrigth
+# I remove them by downloading the upstream tarbal and running
+# ./generate-tarball.sh 0.11.3
+# Source0: https://pypi.python.org/packages/source/s/scikit-image/scikit-image-%{version}.tar.gz
+Source0: scikit-image-%{version}-nolena.tar.gz
+Source1: generate-tarball.sh 
 BuildRequires: python2-devel python-setuptools numpy Cython
 BuildRequires: scipy python-matplotlib python-nose
 BuildRequires: python-six >= 1.3
@@ -89,7 +94,7 @@ pushd %{py3dir}
 popd
 %endif # with_python3
 
-%{__python2} setup.py install --skip-build --root  %{buildroot}
+%{__python2} setup.py install --skip-build --root %{buildroot}
 
 find %{buildroot} -name "*.so" | xargs chmod 755
 
@@ -131,6 +136,9 @@ popd
 %{_bindir}/skivi
 
 %changelog
+* Tue Jan 05 2016 Sergio Pascual <sergiopr@fedoraproject.org> - 0.11.3-6
+- Tarball without problematic copyrigth images (fixes bz #1295193)
+
 * Mon Nov 23 2015 Sergio Pascual <sergiopr@fedoraproject.org> - 0.11.3-5
 - Provides python2-scikit-image
 
