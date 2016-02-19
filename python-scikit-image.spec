@@ -3,7 +3,7 @@
 
 Name: python-scikit-image
 Version: 0.11.3
-Release: 7%{?dist}
+Release: 8%{?dist}
 Summary: Image processing in Python
 # The following files are BSD 2 clauses, the rest BSD 3 clauses
 # skimage/graph/_mcp.pyx
@@ -26,7 +26,8 @@ Requires: scipy
 Requires: python-six >= 1.3
 Requires: python-networkx-core
 Requires: python-pillow
-Provides: python2-scikit-image
+
+Provides: python2-scikit-image = %{version}-%{release}
 
 %description
 The scikit-image SciKit (toolkit for SciPy) extends scipy.ndimage to provide a 
@@ -54,7 +55,11 @@ versatile set of image processing routines.
 %package -n %{upname}-tools
 Summary: Scikit-image utility tools
 BuildArch: noarch
-Requires: %{name} = %{version}-%{release}
+%if 0%{?with_python3}
+Requires: python3-%{upname} = %{version}-%{release}
+%else
+Requires: python2-%{upname} = %{version}-%{release}
+%endif # with_python3
 
 %description -n %{upname}-tools
 Utilities provided by scikit-image: 'skivi'
@@ -88,13 +93,14 @@ popd
 %endif # with_python3
 
 %install
+
+%{__python2} setup.py install --skip-build --root %{buildroot}
+
 %if 0%{?with_python3}
 pushd %{py3dir}
 %{__python3} setup.py install --skip-build --root %{buildroot}
 popd
 %endif # with_python3
-
-%{__python2} setup.py install --skip-build --root %{buildroot}
 
 find %{buildroot} -name "*.so" | xargs chmod 755
 
@@ -136,6 +142,10 @@ popd
 %{_bindir}/skivi
 
 %changelog
+* Fri Feb 19 2016 Sergio Pascual <sergiopr@fedoraproject.org> - 0.11.3-8
+- skivi uses python3 (bz #1309240)
+- Provides "versioned" python2-scikit-image
+
 * Thu Feb 04 2016 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.3-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
 
