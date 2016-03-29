@@ -1,9 +1,9 @@
 %global with_python3 1
-%global upname scikit-image
+%global srcname scikit-image
 
 Name: python-scikit-image
-Version: 0.11.3
-Release: 8%{?dist}
+Version: 0.12.3
+Release: 1%{?dist}
 Summary: Image processing in Python
 # The following files are BSD 2 clauses, the rest BSD 3 clauses
 # skimage/graph/_mcp.pyx
@@ -11,12 +11,7 @@ Summary: Image processing in Python
 License: BSD
 
 URL: http://scikit-image.org/
-# Upstream contains images of problematic copyrigth
-# I remove them by downloading the upstream tarbal and running
-# ./generate-tarball.sh 0.11.3
-# Source0: https://pypi.python.org/packages/source/s/scikit-image/scikit-image-%{version}.tar.gz
-Source0: scikit-image-%{version}-nolena.tar.gz
-Source1: generate-tarball.sh 
+Source0: https://pypi.python.org/packages/source/s/scikit-image/scikit-image-%{version}.tar.gz
 BuildRequires: python2-devel python-setuptools numpy Cython
 BuildRequires: scipy python-matplotlib python-nose
 BuildRequires: python-six >= 1.3
@@ -34,7 +29,7 @@ The scikit-image SciKit (toolkit for SciPy) extends scipy.ndimage to provide a
 versatile set of image processing routines.
 
 %if 0%{?with_python3}
-%package -n python3-%{upname}
+%package -n python3-%{srcname}
 Summary: Image processing in Python
 BuildRequires: python3-devel python3-setuptools python3-numpy python3-Cython
 BuildRequires: python3-scipy python3-matplotlib python3-nose
@@ -46,26 +41,26 @@ Requires: python3-six >= 1.3
 Requires: python3-networkx-core
 Requires: python3-pillow
 
-%description -n python3-%{upname}
+%description -n python3-%{srcname}
 The scikit-image SciKit (toolkit for SciPy) extends scipy.ndimage to provide a 
 versatile set of image processing routines.
 
 %endif # with_python3
 
-%package -n %{upname}-tools
+%package -n %{srcname}-tools
 Summary: Scikit-image utility tools
 BuildArch: noarch
 %if 0%{?with_python3}
-Requires: python3-%{upname} = %{version}-%{release}
+Requires: python3-%{srcname} = %{version}-%{release}
 %else
-Requires: python2-%{upname} = %{version}-%{release}
+Requires: python2-%{srcname} = %{version}-%{release}
 %endif # with_python3
 
-%description -n %{upname}-tools
+%description -n %{srcname}-tools
 Utilities provided by scikit-image: 'skivi'
 
 %prep
-%setup -n %{upname}-%{version} -q
+%setup -n %{srcname}-%{version} -q
 # Remove some shebangs
 pushd skimage
 for i in $(grep -l -r "/usr/bin/env"); do
@@ -131,17 +126,21 @@ popd
 %{python2_sitearch}/scikit_image-*.egg-info
 
 %if 0%{?with_python3}
-%files -n python3-%{upname}
+%files -n python3-%{srcname}
 %doc CONTRIBUTORS.txt DEPENDS.txt RELEASE.txt TASKS.txt
 %license LICENSE.txt
 %{python3_sitearch}/skimage
 %{python3_sitearch}/scikit_image-*.egg-info
 %endif # with_python3
 
-%files -n %{upname}-tools
+%files -n %{srcname}-tools
 %{_bindir}/skivi
 
 %changelog
+* Tue Mar 29 2016 Sergio Pascual <sergiopr@fedoraproject.org> - 0.12.3-1
+- New upstream source
+- Disable tests for the moment
+
 * Fri Feb 19 2016 Sergio Pascual <sergiopr@fedoraproject.org> - 0.11.3-8
 - skivi uses python3 (bz #1309240)
 - Provides "versioned" python2-scikit-image
