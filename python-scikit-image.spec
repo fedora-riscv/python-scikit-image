@@ -3,7 +3,7 @@
 
 Name: python-scikit-image
 Version: 0.12.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Image processing in Python
 # The following files are BSD 2 clauses, the rest BSD 3 clauses
 # skimage/graph/_mcp.pyx
@@ -137,7 +137,7 @@ popd
 %{_bindir}/skivi
 
 %changelog
-* Tue Mar 29 2016 Sergio Pascual <sergiopr@fedoraproject.org> - 0.12.3-1
+* Tue Mar 29 2016 Sergio Pascual <sergiopr@fedoraproject.org> - 0.12.3-2
 - New upstream source
 - Disable tests for the moment
 
