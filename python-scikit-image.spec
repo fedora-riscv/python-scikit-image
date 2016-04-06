@@ -3,7 +3,7 @@
 
 Name: python-scikit-image
 Version: 0.12.3
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Image processing in Python
 # The following files are BSD 2 clauses, the rest BSD 3 clauses
 # skimage/graph/_mcp.pyx
@@ -17,6 +17,7 @@ BuildRequires: scipy python-matplotlib python-nose
 BuildRequires: python-six >= 1.3
 BuildRequires: python-networkx-core
 BuildRequires: python-pillow
+BuildRequires: xorg-x11-server-Xvfb
 Requires: scipy 
 Requires: python-six >= 1.3
 Requires: python-networkx-core
@@ -106,7 +107,7 @@ mkdir -p matplotlib
 touch matplotlib/matplotlibrc
 export XDG_CONFIG_HOME=`pwd`
 pushd %{buildroot}/%{python2_sitearch}
-#nosetests-%{python2_version} skimage
+xvfb-run nosetests-%{python2_version} skimage || :
 popd
 
 %if 0%{?with_python3}
@@ -115,7 +116,7 @@ mkdir -p matplotlib
 touch matplotlib/matplotlibrc
 export XDG_CONFIG_HOME=`pwd`
 pushd %{buildroot}/%{python3_sitearch}
-#nosetests-%{python3_version} skimage
+xvfb-run nosetests-%{python3_version} skimage || :
 popd
 %endif # with_python3
  
@@ -137,6 +138,9 @@ popd
 %{_bindir}/skivi
 
 %changelog
+* Wed Apr 6 2016 Orion Poplawski <orion@cora.nwra.com> - 0.12.3-3
+- Run tests, but do not abort build on failure
+
 * Tue Mar 29 2016 Sergio Pascual <sergiopr@fedoraproject.org> - 0.12.3-2
 - New upstream source
 - Disable tests for the moment
