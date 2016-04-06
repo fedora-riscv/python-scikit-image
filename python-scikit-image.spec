@@ -12,26 +12,33 @@ License: BSD
 
 URL: http://scikit-image.org/
 Source0: https://pypi.python.org/packages/source/s/scikit-image/scikit-image-%{version}.tar.gz
-BuildRequires: python2-devel python-setuptools numpy Cython
-BuildRequires: scipy python-matplotlib python-nose
-BuildRequires: python-six >= 1.3
-BuildRequires: python-networkx-core
-BuildRequires: python-pillow
-BuildRequires: xorg-x11-server-Xvfb
-Requires: scipy 
-Requires: python-six >= 1.3
-Requires: python-networkx-core
-Requires: python-pillow
 
-Provides: python2-scikit-image = %{version}-%{release}
+BuildRequires: xorg-x11-server-Xvfb
 
 %description
 The scikit-image SciKit (toolkit for SciPy) extends scipy.ndimage to provide a 
 versatile set of image processing routines.
 
+%package -n python2-%{srcname}
+Summary: Image processing in Python 2
+BuildRequires: python2-devel python-setuptools numpy Cython
+BuildRequires: scipy python-matplotlib python-nose
+BuildRequires: python-six >= 1.3
+BuildRequires: python-networkx-core
+BuildRequires: python-pillow
+Requires: scipy 
+Requires: python-six >= 1.3
+Requires: python-networkx-core
+Requires: python-pillow
+%{?python_provide:%python_provide python2-%{srcname}}
+
+%description -n python2-%{srcname}
+The scikit-image SciKit (toolkit for SciPy) extends scipy.ndimage to provide a 
+versatile set of image processing routines.
+
 %if 0%{?with_python3}
 %package -n python3-%{srcname}
-Summary: Image processing in Python
+Summary: Image processing in Python 3
 BuildRequires: python3-devel python3-setuptools python3-numpy python3-Cython
 BuildRequires: python3-scipy python3-matplotlib python3-nose
 BuildRequires: python3-six >= 1.3
@@ -41,6 +48,7 @@ Requires: python3-scipy
 Requires: python3-six >= 1.3
 Requires: python3-networkx-core
 Requires: python3-pillow
+%{?python_provide:%python_provide python%{python3_pkgversion}-%{srcname}}
 
 %description -n python3-%{srcname}
 The scikit-image SciKit (toolkit for SciPy) extends scipy.ndimage to provide a 
@@ -69,33 +77,20 @@ for i in $(grep -l -r "/usr/bin/env"); do
 done
 popd
 
-find -name '*.py' | xargs sed -i '1s|^#!python|#!%{__python2}|'
-
-%if 0%{?with_python3}
-rm -rf %{py3dir}
-cp -a . %{py3dir}
-find %{py3dir} -name '*.py' | xargs sed -i '1s|^#!python|#!%{__python3}|'
-%endif # with_python3
-
 %build
-CFLAGS="%{optflags}" %{__python2} setup.py build
+%py2_build
 # Requires plot2rst
 #%{__python2} setup.py build_sphinx
 
 %if 0%{?with_python3}
-pushd %{py3dir}
-CFLAGS="%{optflags}" %{__python3} setup.py build
-popd
+%py3_build
 %endif # with_python3
 
 %install
-
-%{__python2} setup.py install --skip-build --root %{buildroot}
+%py2_install
 
 %if 0%{?with_python3}
-pushd %{py3dir}
-%{__python3} setup.py install --skip-build --root %{buildroot}
-popd
+%py3_install
 %endif # with_python3
 
 find %{buildroot} -name "*.so" | xargs chmod 755
@@ -120,7 +115,7 @@ xvfb-run nosetests-%{python3_version} skimage || :
 popd
 %endif # with_python3
  
-%files
+%files -n python2-%{srcname}
 %doc CONTRIBUTORS.txt DEPENDS.txt RELEASE.txt TASKS.txt
 %license LICENSE.txt
 %{python2_sitearch}/skimage
@@ -140,6 +135,7 @@ popd
 %changelog
 * Wed Apr 6 2016 Orion Poplawski <orion@cora.nwra.com> - 0.12.3-3
 - Run tests, but do not abort build on failure
+- Drop py3dir, use new python macros
 
 * Tue Mar 29 2016 Sergio Pascual <sergiopr@fedoraproject.org> - 0.12.3-2
 - New upstream source
