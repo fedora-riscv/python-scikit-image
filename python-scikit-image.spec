@@ -1,9 +1,13 @@
+%if 0%{?fedora}
 %global with_python3 1
+%else
+%global with_python3 0
+%endif
 %global srcname scikit-image
 
 Name: python-scikit-image
 Version: 0.12.3
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: Image processing in Python
 # The following files are BSD 2 clauses, the rest BSD 3 clauses
 # skimage/graph/_mcp.pyx
@@ -12,6 +16,8 @@ License: BSD
 
 URL: http://scikit-image.org/
 Source0: https://pypi.python.org/packages/source/s/scikit-image/scikit-image-%{version}.tar.gz
+# Do not need Cython to build since upstream ships .pyx files
+Patch0: https://patch-diff.githubusercontent.com/raw/scikit-image/scikit-image/pull/2036.patch
 
 BuildRequires: xorg-x11-server-Xvfb
 
@@ -21,8 +27,11 @@ versatile set of image processing routines.
 
 %package -n python2-%{srcname}
 Summary: Image processing in Python 2
-BuildRequires: python2-devel python-setuptools numpy Cython
+BuildRequires: python2-devel python-setuptools numpy
 BuildRequires: scipy python-matplotlib python-nose
+%if 0%{?rhel}
+BuildRequires: python-matplotlib-qt4
+%endif
 BuildRequires: python-six >= 1.3
 BuildRequires: python-networkx-core
 BuildRequires: python-pillow
@@ -39,7 +48,7 @@ versatile set of image processing routines.
 %if 0%{?with_python3}
 %package -n python3-%{srcname}
 Summary: Image processing in Python 3
-BuildRequires: python3-devel python3-setuptools python3-numpy python3-Cython
+BuildRequires: python3-devel python3-setuptools python3-numpy
 BuildRequires: python3-scipy python3-matplotlib python3-nose
 BuildRequires: python3-six >= 1.3
 BuildRequires: python3-networkx-core
@@ -70,6 +79,7 @@ Utilities provided by scikit-image: 'skivi'
 
 %prep
 %setup -n %{srcname}-%{version} -q
+%patch0 -p1 -b .Cython
 # Remove some shebangs
 pushd skimage
 for i in $(grep -l -r "/usr/bin/env"); do
@@ -133,6 +143,10 @@ popd
 %{_bindir}/skivi
 
 %changelog
+* Tue Aug 16 2016 Orion Poplawski <orion@cora.nwra.com> - 0.12.3-5
+- Remove Cython build requirement
+- Only build python3 for Fedora
+
 * Tue Jul 19 2016 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.12.3-4
 - https://fedoraproject.org/wiki/Changes/Automatic_Provides_for_Python_RPM_Packages
 
