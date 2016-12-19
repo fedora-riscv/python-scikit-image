@@ -7,7 +7,7 @@
 
 Name: python-scikit-image
 Version: 0.12.3
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: Image processing in Python
 # The following files are BSD 2 clauses, the rest BSD 3 clauses
 # skimage/graph/_mcp.pyx
@@ -143,6 +143,9 @@ popd
 %{_bindir}/skivi
 
 %changelog
+* Mon Dec 19 2016 Miro Hrončok <mhroncok@redhat.com> - 0.12.3-6
+- Rebuild for Python 3.6
+
 * Tue Aug 16 2016 Orion Poplawski <orion@cora.nwra.com> - 0.12.3-5
 - Remove Cython build requirement
 - Only build python3 for Fedora
