@@ -6,8 +6,8 @@
 %global srcname scikit-image
 
 Name: python-scikit-image
-Version: 0.12.3
-Release: 7%{?dist}
+Version: 0.13.0
+Release: 1%{?dist}
 Summary: Image processing in Python
 # The following files are BSD 2 clauses, the rest BSD 3 clauses
 # skimage/graph/_mcp.pyx
@@ -16,8 +16,7 @@ License: BSD
 
 URL: http://scikit-image.org/
 Source0: https://pypi.python.org/packages/source/s/scikit-image/scikit-image-%{version}.tar.gz
-# Do not need Cython to build since upstream ships .pyx files
-Patch0: https://patch-diff.githubusercontent.com/raw/scikit-image/scikit-image/pull/2036.patch
+
 
 BuildRequires: xorg-x11-server-Xvfb
 
@@ -79,7 +78,7 @@ Utilities provided by scikit-image: 'skivi'
 
 %prep
 %setup -n %{srcname}-%{version} -q
-%patch0 -p1 -b .Cython
+#%patch0 -p1 -b .Cython
 # Remove some shebangs
 pushd skimage
 for i in $(grep -l -r "/usr/bin/env"); do
@@ -143,6 +142,9 @@ popd
 %{_bindir}/skivi
 
 %changelog
+* Mon May 15 2017 Sergio Pascual <sergiopr@fedoraproject.org> - 0.13.0-1
+- New upstream version (0.13.0)
+
 * Sat Feb 11 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.3-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
 
