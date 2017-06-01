@@ -7,7 +7,7 @@
 
 Name: python-scikit-image
 Version: 0.13.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Image processing in Python
 # The following files are BSD 2 clauses, the rest BSD 3 clauses
 # skimage/graph/_mcp.pyx
@@ -34,10 +34,12 @@ BuildRequires: python-matplotlib-qt4
 BuildRequires: python-six >= 1.3
 BuildRequires: python-networkx-core
 BuildRequires: python-pillow
+BuildRequires: python2-pywt
 Requires: scipy 
 Requires: python-six >= 1.3
 Requires: python-networkx-core
 Requires: python-pillow
+Requires: python2-pywt >= 0.4.0
 %{?python_provide:%python_provide python2-%{srcname}}
 
 %description -n python2-%{srcname}
@@ -52,10 +54,12 @@ BuildRequires: python3-scipy python3-matplotlib python3-nose
 BuildRequires: python3-six >= 1.3
 BuildRequires: python3-networkx-core
 BuildRequires: python3-pillow
+BuildRequires: python3-pywt
 Requires: python3-scipy
 Requires: python3-six >= 1.3
 Requires: python3-networkx-core
 Requires: python3-pillow
+Requires: python3-pywt >= 0.4.0
 %{?python_provide:%python_provide python%{python3_pkgversion}-%{srcname}}
 
 %description -n python3-%{srcname}
@@ -142,6 +146,9 @@ popd
 %{_bindir}/skivi
 
 %changelog
+* Thu Jun 01 2017 Sergio Pascual <sergiopr@fedoraproject.org> - 0.13.0-2
+- Add dependency on pywt (PyWavelets)
+
 * Mon May 15 2017 Sergio Pascual <sergiopr@fedoraproject.org> - 0.13.0-1
 - New upstream version (0.13.0)
 
