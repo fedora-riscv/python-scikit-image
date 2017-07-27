@@ -7,7 +7,7 @@
 
 Name: python-scikit-image
 Version: 0.13.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Image processing in Python
 # The following files are BSD 2 clauses, the rest BSD 3 clauses
 # skimage/graph/_mcp.pyx
@@ -146,6 +146,9 @@ popd
 %{_bindir}/skivi
 
 %changelog
+* Thu Jul 27 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
+
 * Thu Jun 01 2017 Sergio Pascual <sergiopr@fedoraproject.org> - 0.13.0-2
 - Add dependency on pywt (PyWavelets)
 
