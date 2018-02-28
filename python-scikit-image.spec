@@ -7,7 +7,7 @@
 
 Name: python-scikit-image
 Version: 0.13.0
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: Image processing in Python
 # The following files are BSD 2 clauses, the rest BSD 3 clauses
 # skimage/graph/_mcp.pyx
@@ -26,19 +26,19 @@ versatile set of image processing routines.
 
 %package -n python2-%{srcname}
 Summary: Image processing in Python 2
-BuildRequires: python2-devel python-setuptools numpy
-BuildRequires: scipy python-matplotlib python-nose
+BuildRequires: python2-devel python2-setuptools python2-numpy
+BuildRequires: python2-scipy python2-matplotlib python2-nose
 %if 0%{?rhel}
 BuildRequires: python-matplotlib-qt4
 %endif
-BuildRequires: python-six >= 1.3
-BuildRequires: python-networkx-core
-BuildRequires: python-pillow
+BuildRequires: python2-six >= 1.3
+BuildRequires: python2-networkx-core
+BuildRequires: python2-pillow
 BuildRequires: python2-pywt
-Requires: scipy 
-Requires: python-six >= 1.3
-Requires: python-networkx-core
-Requires: python-pillow
+Requires: python2-scipy 
+Requires: python2-six >= 1.3
+Requires: python2-networkx-core
+Requires: python2-pillow
 Requires: python2-pywt >= 0.4.0
 %{?python_provide:%python_provide python2-%{srcname}}
 
@@ -146,6 +146,10 @@ popd
 %{_bindir}/skivi
 
 %changelog
+* Wed Feb 28 2018 Iryna Shcherbina <ishcherb@redhat.com> - 0.13.0-6
+- Update Python 2 dependency declarations to new packaging standards
+  (See https://fedoraproject.org/wiki/FinalizingFedoraSwitchtoPython3)
+
 * Fri Feb 09 2018 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
 
