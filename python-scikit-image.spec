@@ -6,8 +6,8 @@
 %global srcname scikit-image
 
 Name: python-scikit-image
-Version: 0.13.0
-Release: 6%{?dist}
+Version: 0.14.0
+Release: 1%{?dist}
 Summary: Image processing in Python
 # The following files are BSD 2 clauses, the rest BSD 3 clauses
 # skimage/graph/_mcp.pyx
@@ -34,7 +34,7 @@ BuildRequires: python-matplotlib-qt4
 BuildRequires: python2-six >= 1.3
 BuildRequires: python2-networkx-core
 BuildRequires: python2-pillow
-BuildRequires: python2-pywt
+BuildRequires: python2-pywt python-Cython
 Requires: python2-scipy 
 Requires: python2-six >= 1.3
 Requires: python2-networkx-core
@@ -54,7 +54,7 @@ BuildRequires: python3-scipy python3-matplotlib python3-nose
 BuildRequires: python3-six >= 1.3
 BuildRequires: python3-networkx-core
 BuildRequires: python3-pillow
-BuildRequires: python3-pywt
+BuildRequires: python3-pywt python3-Cython
 Requires: python3-scipy
 Requires: python3-six >= 1.3
 Requires: python3-networkx-core
@@ -129,14 +129,14 @@ popd
 %endif # with_python3
  
 %files -n python2-%{srcname}
-%doc CONTRIBUTORS.txt DEPENDS.txt RELEASE.txt TASKS.txt
+%doc CONTRIBUTORS.txt RELEASE.txt
 %license LICENSE.txt
 %{python2_sitearch}/skimage
 %{python2_sitearch}/scikit_image-*.egg-info
 
 %if 0%{?with_python3}
 %files -n python3-%{srcname}
-%doc CONTRIBUTORS.txt DEPENDS.txt RELEASE.txt TASKS.txt
+%doc CONTRIBUTORS.txt RELEASE.txt
 %license LICENSE.txt
 %{python3_sitearch}/skimage
 %{python3_sitearch}/scikit_image-*.egg-info
@@ -146,6 +146,9 @@ popd
 %{_bindir}/skivi
 
 %changelog
+* Mon Jun 11 2018 Sergio Pascual <sergiopr@fedoraproject.org> - 0.14.0-1
+- New upstream version (0.14.0)
+
 * Wed Feb 28 2018 Iryna Shcherbina <ishcherb@redhat.com> - 0.13.0-6
 - Update Python 2 dependency declarations to new packaging standards
   (See https://fedoraproject.org/wiki/FinalizingFedoraSwitchtoPython3)
