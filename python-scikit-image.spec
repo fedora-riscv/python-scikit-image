@@ -34,7 +34,7 @@ BuildRequires: python-matplotlib-qt4
 BuildRequires: python2-six >= 1.3
 BuildRequires: python2-networkx-core
 BuildRequires: python2-pillow
-BuildRequires: python2-pywt python-Cython
+BuildRequires: python2-pywt python2-Cython
 Requires: python2-scipy 
 Requires: python2-six >= 1.3
 Requires: python2-networkx-core
