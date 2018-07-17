@@ -7,7 +7,7 @@
 
 Name: python-scikit-image
 Version: 0.14.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Image processing in Python
 # The following files are BSD 2 clauses, the rest BSD 3 clauses
 # skimage/graph/_mcp.pyx
@@ -17,7 +17,7 @@ License: BSD
 URL: http://scikit-image.org/
 Source0: https://pypi.python.org/packages/source/s/scikit-image/scikit-image-%{version}.tar.gz
 
-
+BuildRequires: gcc
 BuildRequires: xorg-x11-server-Xvfb
 
 %description
@@ -146,6 +146,9 @@ popd
 %{_bindir}/skivi
 
 %changelog
+* Tue Jul 17 2018 Christian Dersch <lupinix@fedoraproject.org> - 0.14.0-4
+- BuildRequires: gcc
+
 * Sat Jul 14 2018 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
 
