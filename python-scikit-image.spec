@@ -17,7 +17,7 @@ License: BSD
 URL: http://scikit-image.org/
 Source0: https://pypi.python.org/packages/source/s/scikit-image/scikit-image-%{version}.tar.gz
 
-BuildRequires: gcc
+BuildRequires: gcc gcc-c++
 BuildRequires: xorg-x11-server-Xvfb
 
 %description
