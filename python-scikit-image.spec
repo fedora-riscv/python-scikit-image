@@ -1,13 +1,8 @@
-%if 0%{?fedora}
-%global with_python3 1
-%else
-%global with_python3 0
-%endif
 %global srcname scikit-image
 
 Name: python-scikit-image
 Version: 0.14.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: Image processing in Python
 # The following files are BSD 2 clauses, the rest BSD 3 clauses
 # skimage/graph/_mcp.pyx
@@ -24,29 +19,7 @@ BuildRequires: xorg-x11-server-Xvfb
 The scikit-image SciKit (toolkit for SciPy) extends scipy.ndimage to provide a 
 versatile set of image processing routines.
 
-%package -n python2-%{srcname}
-Summary: Image processing in Python 2
-BuildRequires: python2-devel python2-setuptools python2-numpy
-BuildRequires: python2-scipy python2-matplotlib python2-nose
-%if 0%{?rhel}
-BuildRequires: python-matplotlib-qt4
-%endif
-BuildRequires: python2-six >= 1.3
-BuildRequires: python2-networkx-core
-BuildRequires: python2-pillow
-BuildRequires: python2-pywt python2-Cython
-Requires: python2-scipy 
-Requires: python2-six >= 1.3
-Requires: python2-networkx-core
-Requires: python2-pillow
-Requires: python2-pywt >= 0.4.0
-%{?python_provide:%python_provide python2-%{srcname}}
 
-%description -n python2-%{srcname}
-The scikit-image SciKit (toolkit for SciPy) extends scipy.ndimage to provide a 
-versatile set of image processing routines.
-
-%if 0%{?with_python3}
 %package -n python3-%{srcname}
 Summary: Image processing in Python 3
 BuildRequires: python3-devel python3-setuptools python3-numpy
@@ -66,16 +39,10 @@ Requires: python3-pywt >= 0.4.0
 The scikit-image SciKit (toolkit for SciPy) extends scipy.ndimage to provide a 
 versatile set of image processing routines.
 
-%endif # with_python3
-
 %package -n %{srcname}-tools
 Summary: Scikit-image utility tools
 BuildArch: noarch
-%if 0%{?with_python3}
 Requires: python3-%{srcname} = %{version}-%{release}
-%else
-Requires: python2-%{srcname} = %{version}-%{release}
-%endif # with_python3
 
 %description -n %{srcname}-tools
 Utilities provided by scikit-image: 'skivi'
@@ -91,20 +58,14 @@ done
 popd
 
 %build
-%py2_build
-# Requires plot2rst
-#%{__python2} setup.py build_sphinx
-
-%if 0%{?with_python3}
 %py3_build
-%endif # with_python3
+
+# Requires plot2rst
+#%{__python3} setup.py build_sphinx
+
 
 %install
-%py2_install
-
-%if 0%{?with_python3}
 %py3_install
-%endif # with_python3
 
 find %{buildroot} -name "*.so" | xargs chmod 755
 
@@ -114,38 +75,25 @@ find %{buildroot} -name "*.so" | xargs chmod 755
 mkdir -p matplotlib
 touch matplotlib/matplotlibrc
 export XDG_CONFIG_HOME=`pwd`
-pushd %{buildroot}/%{python2_sitearch}
-xvfb-run nosetests-%{python2_version} skimage || :
-popd
-
-%if 0%{?with_python3}
-# Fake matplotlibrc
-mkdir -p matplotlib
-touch matplotlib/matplotlibrc
-export XDG_CONFIG_HOME=`pwd`
 pushd %{buildroot}/%{python3_sitearch}
 xvfb-run nosetests-%{python3_version} skimage || :
 popd
-%endif # with_python3
- 
-%files -n python2-%{srcname}
-%doc CONTRIBUTORS.txt RELEASE.txt
-%license LICENSE.txt
-%{python2_sitearch}/skimage
-%{python2_sitearch}/scikit_image-*.egg-info
 
-%if 0%{?with_python3}
+
 %files -n python3-%{srcname}
 %doc CONTRIBUTORS.txt RELEASE.txt
 %license LICENSE.txt
 %{python3_sitearch}/skimage
 %{python3_sitearch}/scikit_image-*.egg-info
-%endif # with_python3
 
 %files -n %{srcname}-tools
 %{_bindir}/skivi
 
+
 %changelog
+* Mon Oct 01 2018 Miro Hrončok <mhroncok@redhat.com> - 0.14.0-5
+- Remove Python 2 subpackage
+
 * Tue Jul 17 2018 Christian Dersch <lupinix@fedoraproject.org> - 0.14.0-4
 - BuildRequires: gcc
 
