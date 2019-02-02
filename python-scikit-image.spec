@@ -2,7 +2,7 @@
 
 Name: python-scikit-image
 Version: 0.14.0
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: Image processing in Python
 # The following files are BSD 2 clauses, the rest BSD 3 clauses
 # skimage/graph/_mcp.pyx
@@ -91,6 +91,9 @@ popd
 
 
 %changelog
+* Sat Feb 02 2019 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
+
 * Mon Oct 01 2018 Miro Hrončok <mhroncok@redhat.com> - 0.14.0-5
 - Remove Python 2 subpackage
 
