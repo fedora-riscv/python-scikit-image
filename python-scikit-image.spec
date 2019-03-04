@@ -1,8 +1,11 @@
 %global srcname scikit-image
 
+# Disable automatic dependency generators until we fixed (optional) deps
+%{?python_disable_dependency_generator}
+
 Name: python-scikit-image
 Version: 0.14.0
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: Image processing in Python
 # The following files are BSD 2 clauses, the rest BSD 3 clauses
 # skimage/graph/_mcp.pyx
@@ -91,6 +94,9 @@ popd
 
 
 %changelog
+* Mon Mar 04 2019 Christian Dersch <lupinix@mailbox.org> - 0.14.0-7
+- Disable automatic dependency generators until we fixed (optional) deps
+
 * Sat Feb 02 2019 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
 
