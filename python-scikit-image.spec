@@ -4,8 +4,8 @@
 %{?python_disable_dependency_generator}
 
 Name: python-scikit-image
-Version: 0.14.0
-Release: 7%{?dist}
+Version: 0.14.2
+Release: 1%{?dist}
 Summary: Image processing in Python
 # The following files are BSD 2 clauses, the rest BSD 3 clauses
 # skimage/graph/_mcp.pyx
@@ -31,6 +31,8 @@ BuildRequires: python3-six >= 1.3
 BuildRequires: python3-networkx-core
 BuildRequires: python3-pillow
 BuildRequires: python3-pywt python3-Cython
+Requires: python3-dask
+Requires: python3-matplotlib-qt5
 Requires: python3-scipy
 Requires: python3-six >= 1.3
 Requires: python3-networkx-core
@@ -94,6 +96,10 @@ popd
 
 
 %changelog
+* Sun May  5 2019 Orion Poplawski <orion@nwra.com> - 0.14.2-1
+- Update to 0.14.2 to fix numpy 1.16 compatibility (bugz#1706125)
+- Add requires on dask and maplotlib-qt5 (bugz#1691823)
+
 * Mon Mar 04 2019 Christian Dersch <lupinix@mailbox.org> - 0.14.0-7
 - Disable automatic dependency generators until we fixed (optional) deps
 
