@@ -5,7 +5,7 @@
 
 Name: python-scikit-image
 Version: 0.14.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Image processing in Python
 # The following files are BSD 2 clauses, the rest BSD 3 clauses
 # skimage/graph/_mcp.pyx
@@ -96,6 +96,9 @@ popd
 
 
 %changelog
+* Fri Jul 26 2019 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
+
 * Sun May  5 2019 Orion Poplawski <orion@nwra.com> - 0.14.2-1
 - Update to 0.14.2 to fix numpy 1.16 compatibility (bugz#1706125)
 - Add requires on dask and maplotlib-qt5 (bugz#1691823)
