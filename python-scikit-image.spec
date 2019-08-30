@@ -4,8 +4,8 @@
 %{?python_disable_dependency_generator}
 
 Name: python-scikit-image
-Version: 0.14.2
-Release: 3%{?dist}
+Version: 0.15.0
+Release: 1%{?dist}
 Summary: Image processing in Python
 # The following files are BSD 2 clauses, the rest BSD 3 clauses
 # skimage/graph/_mcp.pyx
@@ -13,7 +13,7 @@ Summary: Image processing in Python
 License: BSD
 
 URL: http://scikit-image.org/
-Source0: https://pypi.python.org/packages/source/s/scikit-image/scikit-image-%{version}.tar.gz
+Source0: %{pypi_source}
 
 BuildRequires: gcc gcc-c++
 BuildRequires: xorg-x11-server-Xvfb
@@ -26,7 +26,7 @@ versatile set of image processing routines.
 %package -n python3-%{srcname}
 Summary: Image processing in Python 3
 BuildRequires: python3-devel python3-setuptools python3-numpy
-BuildRequires: python3-scipy python3-matplotlib python3-nose
+BuildRequires: python3-scipy python3-matplotlib python3-pytest
 BuildRequires: python3-six >= 1.3
 BuildRequires: python3-networkx-core
 BuildRequires: python3-pillow
@@ -54,7 +54,6 @@ Utilities provided by scikit-image: 'skivi'
 
 %prep
 %setup -n %{srcname}-%{version} -q
-#%patch0 -p1 -b .Cython
 # Remove some shebangs
 pushd skimage
 for i in $(grep -l -r "/usr/bin/env"); do
@@ -72,7 +71,7 @@ popd
 %install
 %py3_install
 
-find %{buildroot} -name "*.so" | xargs chmod 755
+# find %{buildroot} -name "*.so" | xargs chmod 755
 
 # Checks are not working at the moment
 %check
@@ -81,7 +80,7 @@ mkdir -p matplotlib
 touch matplotlib/matplotlibrc
 export XDG_CONFIG_HOME=`pwd`
 pushd %{buildroot}/%{python3_sitearch}
-xvfb-run nosetests-%{python3_version} skimage || :
+xvfb-run pytest-%{python3_version} skimage || :
 popd
 
 
@@ -96,6 +95,9 @@ popd
 
 
 %changelog
+* Sat Aug 31 2019 Sergio Pascual <sergiopr@fedoraproject.org> - 0.15.0-1
+- New upstream version (0.15.0)
+
 * Mon Aug 19 2019 Miro Hrončok <mhroncok@redhat.com> - 0.14.2-3
 - Rebuilt for Python 3.8
 
