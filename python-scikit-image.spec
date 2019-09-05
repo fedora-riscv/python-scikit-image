@@ -95,6 +95,9 @@ popd
 
 
 %changelog
+* Thu Sep  5 2019 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 0.15.0-1
+- Rebuilt with fixed python-pywt
+
 * Sat Aug 31 2019 Sergio Pascual <sergiopr@fedoraproject.org> - 0.15.0-1
 - New upstream version (0.15.0)
 
