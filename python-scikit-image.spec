@@ -4,7 +4,7 @@
 %{?python_disable_dependency_generator}
 
 Name: python-scikit-image
-Version: 0.16.1
+Version: 0.16.2
 Release: 1%{?dist}
 Summary: Image processing in Python
 # The following files are BSD 2 clauses, the rest BSD 3 clauses
@@ -96,6 +96,9 @@ popd
 
 
 %changelog
+* Tue Oct 22 2019 Fedora Release Monitoring <release-monitoring@fedoraproject.org> - 0.16.2-1
+- Update to 0.16.2 (#1763989)
++
 * Tue Oct 15 2019 Orion Poplawski <orion@nwra.com> - 0.16.1-1
 - Update to 0.16.1
 - Re-generate Cython source
