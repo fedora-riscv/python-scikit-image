@@ -5,7 +5,7 @@
 
 Name: python-scikit-image
 Version: 0.16.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Image processing in Python
 # The following files are BSD 2 clauses, the rest BSD 3 clauses
 # skimage/graph/_mcp.pyx
@@ -28,14 +28,14 @@ Summary: Image processing in Python 3
 BuildRequires: python3-devel python3-setuptools python3-numpy
 BuildRequires: python3-scipy python3-matplotlib python3-pytest
 BuildRequires: python3-six >= 1.3
-BuildRequires: python3-networkx-core
+BuildRequires: python3-networkx
 BuildRequires: python3-pillow
 BuildRequires: python3-pywt python3-Cython
 Requires: python3-dask
 Requires: python3-matplotlib-qt5
 Requires: python3-scipy
 Requires: python3-six >= 1.3
-Requires: python3-networkx-core
+Requires: python3-networkx
 Requires: python3-pillow
 Requires: python3-pywt >= 0.4.0
 %{?python_provide:%python_provide python%{python3_pkgversion}-%{srcname}}
@@ -96,6 +96,9 @@ popd
 
 
 %changelog
+* Thu Feb 13 2020 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 0.16.2-3
+- Update dep on python3-networkx (no longer provides python3-networkx-core in F32+)
+
 * Thu Jan 30 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
 
