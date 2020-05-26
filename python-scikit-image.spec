@@ -5,7 +5,7 @@
 
 Name: python-scikit-image
 Version: 0.16.2
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Image processing in Python
 # The following files are BSD 2 clauses, the rest BSD 3 clauses
 # skimage/graph/_mcp.pyx
@@ -96,6 +96,9 @@ popd
 
 
 %changelog
+* Tue May 26 2020 Miro Hrončok <mhroncok@redhat.com> - 0.16.2-4
+- Rebuilt for Python 3.9
+
 * Thu Feb 13 2020 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 0.16.2-3
 - Update dep on python3-networkx (no longer provides python3-networkx-core in F32+)
 
