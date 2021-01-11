@@ -4,7 +4,7 @@
 %{?python_disable_dependency_generator}
 
 Name: python-scikit-image
-Version: 0.18.0
+Version: 0.18.1
 Release: 1%{?dist}
 Summary: Image processing in Python
 # The following files are BSD 2 clauses, the rest BSD 3 clauses
@@ -31,6 +31,7 @@ BuildRequires: python3-six >= 1.3
 BuildRequires: python3-networkx
 BuildRequires: python3-pillow
 BuildRequires: python3-pywt python3-Cython
+BuildRequires: python3-tifffile
 Requires: python3-dask
 Requires: python3-matplotlib-qt5
 Requires: python3-scipy
@@ -38,6 +39,7 @@ Requires: python3-six >= 1.3
 Requires: python3-networkx
 Requires: python3-pillow
 Requires: python3-pywt >= 0.4.0
+Requires: python3-tifffile
 %{?python_provide:%python_provide python%{python3_pkgversion}-%{srcname}}
 
 %description -n python3-%{srcname}
@@ -96,6 +98,9 @@ popd
 
 
 %changelog
+* Mon Jan 11 2021 Sergio Pascual <sergiopr@fedoraproject.org> - 0.18.1-1
+- New upstream version (0.18.1)
+
 * Thu Dec 17 2020 Sergio Pascual <sergiopr@fedoraproject.org> - 0.18.0-1
 - New upstream version (0.18.0)
 
