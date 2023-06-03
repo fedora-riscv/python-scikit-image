@@ -1,0 +1,12 @@
+diff -up scikit-image-0.21.0/meson.build.version scikit-image-0.21.0/meson.build
+--- scikit-image-0.21.0/meson.build.version	2023-06-01 20:12:41.000000000 -0600
++++ scikit-image-0.21.0/meson.build	2023-06-02 20:39:40.048765638 -0600
+@@ -4,7 +4,7 @@ project(
+   # Note that the git commit hash cannot be added dynamically here
+   # That only happens when importing from a git repository.
+   # See `skimage/__init__.py`
+-  version: run_command('skimage/_build_utils/version.py', check: true).stdout().strip(),
++  version: run_command('python3', 'skimage/_build_utils/version.py', check: true).stdout().strip(),
+   license: 'BSD-3',
+   meson_version: '>= 0.63.0',
+   default_options: [
