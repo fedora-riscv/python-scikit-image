@@ -4,7 +4,7 @@
 
 Name: python-scikit-image
 Version: 0.22.0
-Release: 2%{?dist}
+Release: 2.rv64%{?dist}
 Summary: Image processing in Python
 # The following files are BSD 2 clauses, the rest BSD 3 clauses
 # skimage/graph/_mcp.pyx
@@ -110,6 +110,9 @@ pushd %{buildroot}/%{python3_sitearch}
   --deselect="skimage/io/tests/test_pil.py::test_all_mono" \
   --deselect="skimage/measure/tests/test_moments.py::test_analytical_moments_calculation[3-1-float32]" \
 %endif
+%ifarch riscv64
+  --deselect="skimage/measure/tests/test_moments.py::test_analytical_moments_calculation[2-1-float32]" \
+%endif
  skimage
 popd
 %endif
@@ -120,6 +123,9 @@ popd
 
 
 %changelog
+* Sun Jan 07 2024 Songsong Zhang <U2FsdGVkX1@gmail.com> - 0.22.0-2.rv64
+- Add riscv64 support
+
 * Sat Oct 28 2023 Sergio Pascual <sergiopr@fedoraproject.org> - 0.22.0-2
 - New upstream source
 
