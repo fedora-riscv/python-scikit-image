@@ -4,7 +4,7 @@
 
 Name: python-scikit-image
 Version: 0.22.0
-Release: 2.rv64%{?dist}
+Release: 3%{?dist}
 Summary: Image processing in Python
 # The following files are BSD 2 clauses, the rest BSD 3 clauses
 # skimage/graph/_mcp.pyx
@@ -123,7 +123,7 @@ popd
 
 
 %changelog
-* Sun Jan 07 2024 Songsong Zhang <U2FsdGVkX1@gmail.com> - 0.22.0-2.rv64
+* Sun Jan 07 2024 Songsong Zhang <U2FsdGVkX1@gmail.com> - 0.22.0-3
 - Add riscv64 support
 
 * Sat Oct 28 2023 Sergio Pascual <sergiopr@fedoraproject.org> - 0.22.0-2
